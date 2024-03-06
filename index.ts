@@ -23,6 +23,6 @@ matrix.forEach((row, i) => i !== 0 ? row[5] = String(tntValue) : {})
 
 const updatedFile = convertMatrixToCsvString(matrix);
 
-await Bun.write(filePath, updatedFile);
+await Bun.write(`${filePath.replace('.csv', `-${tntValue}.csv`)}`, updatedFile);
 
 process.exit(0)
