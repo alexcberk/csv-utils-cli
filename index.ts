@@ -1,5 +1,5 @@
 import { parseArgs } from "util";
-import { convertCsvToMatrix, convertMatrixToCsvString, readFileAsString } from "./utils";
+import { COMMANDS } from "./actions";
 
 const { values, positionals } = parseArgs({
   args: Bun.argv,
@@ -8,21 +8,23 @@ const { values, positionals } = parseArgs({
   allowPositionals: true,
 }) as any;
 
-if (positionals.length < 4) {
-  console.error(`Usage: bun start "/file/path/name.csv" 7`);
+
+if (positionals.length < 3) {
+  console.error(`
+  Usage: ./cm column "/file/path/name.csv" 7\n
+  Use ./cm help for available commands.
+  `);
   process.exit(1);
 }
 
-const filePath = positionals[2];
-const tntValue = parseInt(positionals[3]);
-const file = await readFileAsString(filePath);
-const matrix = convertCsvToMatrix(file);
+// console.log(positionals);
 
-// set tnt to 11, skip header row
-matrix.forEach((row, i) => i !== 0 ? row[5] = String(tntValue) : {})
+const command = positionals[2];
 
-const updatedFile = convertMatrixToCsvString(matrix);
+const action = COMMANDS[command];
 
-await Bun.write(`${filePath.replace('.csv', `-${tntValue}.csv`)}`, updatedFile);
+if (!command) {
+  console.error(`Unsupported Command ${command}.`)
+}
 
-process.exit(0)
+await action(...positionals.slice(3));
