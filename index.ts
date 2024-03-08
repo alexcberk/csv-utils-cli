@@ -11,7 +11,7 @@ const { values, positionals } = parseArgs({
 
 if (positionals.length < 3) {
   console.error(`
-  Usage: ./cm column "/file/path/name.csv" 7\n
+  Usage: ./cm column /file/path/name.csv 7 my-new-value\n
   Use ./cm help for available commands.
   `);
   process.exit(1);

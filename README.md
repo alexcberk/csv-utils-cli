@@ -1,5 +1,12 @@
 # node-csv-utils
 
+## Example
+```bash
+# Change the value of column 6 for all rows
+./cm column ~/test-file.csv 6 my-new-value
+```
+
+## Installation
 To install dependencies:
 
 ```bash
@@ -20,7 +27,7 @@ bun make
 
 Usage:
 ```bash
-./cm command "/file/path.csv" ...args
+./cm command /file/path.csv ...args
 ```
 
-This project was created using `bun init` in bun v1.0.30. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+
